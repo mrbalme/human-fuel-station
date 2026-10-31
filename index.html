@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Fuel Station | Fresh Juices, Smoothies, Shakes & Croissants | Newport</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cabinet+Grotesk:wght@800;900&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              red: '#B72B2B',       /* Signature Red Frontage */
+              crimson: '#8E1F1F',
+              green: '#1E6F43',     /* Fresh Leaf Green */
+              mint: '#EBF7EE',
+              yellow: '#F59E0B',
+              warmYellow: '#FFFBEB',
+              pink: '#FDE8E8',
+              cream: '#FAFAF7',     /* Clean, modern warm paper neutral */
+              sand: '#F3EFE6',
+              dark: '#181716',
+              charcoal: '#2D2B29'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Cabinet Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .active-pill {
+      background-color: #B72B2B !important;
+      color: #FFFFFF !important;
+      border-color: #B72B2B !important;
+    }
+  </style>
+</head>
+<body class="bg-brand-cream text-brand-dark font-sans selection:bg-brand-red selection:text-white antialiased min-h-screen flex flex-col">
+
+  <!-- TOP BAR: NEWPORT STORE INFO -->
+  <div class="bg-brand-dark text-white text-xs py-2.5 px-4 text-center flex flex-wrap items-center justify-center gap-3">
+    <span class="inline-flex items-center gap-1.5 font-bold text-amber-400">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      12 Upper Dock St, Newport (NP20 1DF)
+    </span>
+    <span class="text-stone-400 hidden sm:inline">•</span>
+    <span class="text-stone-300">Open Mon–Sat 8am–6pm | Sun 10am–4:30pm</span>
+    <span class="text-stone-400 hidden sm:inline">•</span>
+    <a href="tel:+447446446006" class="underline font-bold text-brand-yellow hover:text-white transition-colors">Call Shop: +44 7446 446006</a>
+  </div>
+
+  <!-- STICKY HEADER -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Business Logo & Name -->
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-brand-red text-white flex items-center justify-center shadow-md shadow-brand-red/20 flex-shrink-0">
+          <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+            <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+            <line x1="6" x2="6" y1="2" y2="4"/>
+            <line x1="10" x2="10" y1="2" y2="4"/>
+            <line x1="14" x2="14" y1="2" y2="4"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-black text-lg sm:text-xl tracking-tight leading-none text-brand-dark">HUMAN FUEL STATION</span>
+          <span class="text-[10px] sm:text-[11px] font-extrabold uppercase tracking-widest text-brand-green mt-0.5">Juice • Smoothie • Croissant • Shake</span>
+        </div>
+      </a>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href="https://instagram.com/humanfuelstation" target="_blank" rel="noopener" class="p-2 sm:px-3 sm:py-2 rounded-xl border border-stone-200 hover:border-brand-red hover:text-brand-red text-stone-700 transition flex items-center gap-1.5 text-xs font-bold" title="Follow on Instagram">
+          <i data-lucide="instagram" class="w-4 h-4"></i>
+          <span class="hidden md:inline">@humanfuelstation</span>
+        </a>
+        <a href="tel:+447446446006" class="px-3.5 py-2 rounded-xl bg-brand-red hover:bg-brand-crimson text-white font-extrabold text-xs sm:text-sm flex items-center gap-1.5 shadow-sm transition">
+          <i data-lucide="phone-call" class="w-4 h-4"></i>
+          <span>Call Shop</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- QUICK HERO -->
+  <section class="bg-gradient-to-b from-brand-sand/60 to-brand-cream border-b border-stone-200 py-10 sm:py-14">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-stone-200 text-stone-700 text-xs font-bold mb-3 shadow-2xs">
+          <span class="w-2 h-2 rounded-full bg-brand-red"></span> Newport, South Wales • Fresh Everyday
+        </div>
+        <h1 class="font-display text-3xl sm:text-5xl font-black text-brand-dark tracking-tight leading-tight">
+          Real Fuel for Newport. <br>
+          <span class="text-brand-red">100% Fresh Fruits, Pure Energy.</span>
+        </h1>
+        <p class="text-stone-600 text-sm sm:text-base mt-2 max-w-2xl font-medium">
+          Fresh cold-pressed juices, energising smoothies with booster add-ons, indulgent thick milkshakes, and hot loaded croissants. Everything prepared fresh to order at 12 Upper Dock Street.
+        </p>
+
+        <!-- Quick Jump Buttons -->
+        <div class="flex flex-wrap gap-2.5 mt-5">
+          <a href="#menu-board" class="px-4 py-2 bg-brand-dark hover:bg-black text-white text-xs font-extrabold rounded-xl transition flex items-center gap-1.5">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i> View Full Menu
+          </a>
+          <a href="#custom-juice" class="px-4 py-2 bg-brand-green hover:bg-emerald-800 text-white text-xs font-extrabold rounded-xl transition flex items-center gap-1.5">
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i> Build Your Own Juice
+          </a>
+          <a href="#coffee-teaser" class="px-4 py-2 bg-amber-800/10 hover:bg-amber-800/20 text-amber-900 border border-amber-800/30 text-xs font-extrabold rounded-xl transition flex items-center gap-1.5">
+            <i data-lucide="coffee" class="w-3.5 h-3.5 text-amber-800"></i> Coffee Bar (Coming Soon)
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEARCH & SECTION CATEGORY SWITCHER -->
+  <section class="sticky top-16 sm:top-20 z-30 bg-brand-cream/95 backdrop-blur-md border-b border-stone-200 py-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
+      
+      <!-- Category Tabs matching the official menu -->
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="categoryNav">
+        <button onclick="setFilter('all')" data-category="all" class="cat-pill active-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+          Full Menu
+        </button>
+        <button onclick="setFilter('juices')" data-category="juices" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+          🍏 Fresh Juices
+        </button>
+        <button onclick="setFilter('smoothies')" data-category="smoothies" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+          🥤 Smoothies & Boosters
+        </button>
+        <button onclick="setFilter('croissants')" data-category="croissants" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+          🥐 Hot Croissants
+        </button>
+        <button onclick="setFilter('milkshakes')" data-category="milkshakes" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+          🥛 Milkshakes
+        </button>
+        <button onclick="setFilter('coffee')" data-category="coffee" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-amber-300 bg-amber-50 text-amber-900 whitespace-nowrap transition">
+          ☕ Coffee (Teaser)
+        </button>
+      </div>
+
+      <!-- Quick Search Input -->
+      <div class="relative w-full md:w-64 flex-shrink-0">
+        <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3 top-2.5"></i>
+        <input type="text" id="menuSearch" placeholder="Search juice, fruit, biscuit..." 
+               class="w-full pl-9 pr-3 py-1.5 rounded-xl bg-white border border-stone-300 text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-red">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MAIN MENU SHOWCASE SECTION -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 flex-1 space-y-12" id="menu-board">
+
+    <!-- ALLERGENS CALLOUT BANNER (DIRECT FROM BOARD) -->
+    <div class="p-4 rounded-2xl bg-brand-red/10 border-2 border-brand-red/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center flex-shrink-0">
+          <i data-lucide="shield-alert" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h4 class="font-display font-black text-sm uppercase text-brand-red tracking-wider">Allergens Information</h4>
+          <p class="text-xs text-stone-700 leading-relaxed font-medium">
+            Peanuts, nuts, and other food allergens are present at HFS juice bar. We take great care to manage cross-contamination; however, we cannot guarantee an allergen free environment.
+          </p>
+        </div>
+      </div>
+      <a href="tel:+447446446006" class="text-xs font-extrabold text-brand-red underline hover:text-black whitespace-nowrap self-end sm:self-center">
+        Ask Counter Team &rarr;
+      </a>
+    </div>
+
+    <!-- 1. FRESH FRUIT JUICES SECTION -->
+    <section id="section-juices" class="menu-section">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-brand-green/30 pb-3 mb-6 gap-2">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-black uppercase text-brand-green tracking-wider">
+            <span>100% Pressed Raw Fruit</span>
+          </div>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-brand-dark">Fresh Fruit Juices</h2>
+        </div>
+        <div class="flex items-center gap-3 text-xs sm:text-sm font-black text-stone-700 bg-brand-mint px-3.5 py-1.5 rounded-xl border border-brand-green/20">
+          <span>Medium: <strong class="text-brand-green">£5.95</strong></span>
+          <span class="text-stone-300">|</span>
+          <span>Large: <strong class="text-brand-green">£6.95</strong></span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- Gold Ignition -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-brand-green transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Gold Ignition</h3>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800">£5.95 / £6.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-brand-green">Ingredients:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Carrots, Orange, Apple, Lime</p>
+          <div class="mt-3 flex items-center gap-2 text-[11px] text-stone-500">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
+            <span>Rich in Vitamin A & C for natural morning focus</span>
+          </div>
+        </div>
+
+        <!-- Green Light Glow -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-brand-green transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Green Light Glow</h3>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800">£5.95 / £6.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-brand-green">Ingredients:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Apple, Kale, Celery, Spinach, Fresh Ginger</p>
+          <div class="mt-3 flex items-center gap-2 text-[11px] text-stone-500">
+            <i data-lucide="leaf" class="w-3.5 h-3.5 text-emerald-600"></i>
+            <span>Alkalising deep green detox with a warm fiery kick</span>
+          </div>
+        </div>
+
+        <!-- Redline Refresher -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-brand-green transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Redline Refresher</h3>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-rose-100 text-rose-800">£5.95 / £6.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-brand-green">Ingredients:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Carrot, Mango, Apple</p>
+          <div class="mt-3 flex items-center gap-2 text-[11px] text-stone-500">
+            <i data-lucide="sun" class="w-3.5 h-3.5 text-rose-500"></i>
+            <span>Smooth, sweet, and deeply refreshing thirst quencher</span>
+          </div>
+        </div>
+
+        <!-- Tropical Combustion -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-brand-green transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Tropical Combustion</h3>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-800">£5.95 / £6.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-brand-green">Ingredients:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Pineapple, Mango, Coconut water, Fresh Ginger</p>
+          <div class="mt-3 flex items-center gap-2 text-[11px] text-stone-500">
+            <i data-lucide="droplet" class="w-3.5 h-3.5 text-cyan-600"></i>
+            <span>Hydrating electrolytes and revitalising island flavours</span>
+          </div>
+        </div>
+
+        <!-- Pomegranate Juice Special -->
+        <div class="menu-item-card md:col-span-2 bg-gradient-to-r from-red-50 to-pink-50 p-5 rounded-2xl border border-red-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider rounded bg-brand-red text-white">Specialty Press</span>
+              <h3 class="font-display font-black text-xl text-brand-dark">Pomegranate Juice</h3>
+            </div>
+            <p class="text-xs text-stone-600 mt-1">100% pure ruby red cold-pressed pomegranate. Exceptional antioxidant density.</p>
+          </div>
+          <div class="text-left sm:text-right flex-shrink-0">
+            <span class="text-[11px] uppercase tracking-wider font-bold text-stone-500 block">One Size Only</span>
+            <span class="font-display font-black text-2xl text-brand-red">£7.50</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CREATE YOUR OWN JUICE BUILDER (BOARD SPECIFICATION) -->
+      <div id="custom-juice" class="mt-6 bg-white p-6 rounded-3xl border-2 border-brand-green/30 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-stone-200 gap-2">
+          <div>
+            <span class="px-2.5 py-1 rounded-md bg-brand-green text-white text-[10px] font-extrabold uppercase tracking-wider">HFS Board Feature</span>
+            <h3 class="font-display font-black text-xl text-brand-dark mt-1">Create Your Own Juice</h3>
+            <p class="text-xs text-stone-600">Choose up to 4 fresh ingredients from our raw produce bar:</p>
+          </div>
+          <div class="text-right">
+            <span class="text-xs font-bold text-stone-500">Selection:</span>
+            <span id="selectedCount" class="font-display font-black text-brand-green text-base ml-1">0 / 4</span>
+          </div>
+        </div>
+
+        <!-- The 12 Official Board Ingredients -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 pt-4" id="customJuiceGrid">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- Selected Result Bar -->
+        <div class="mt-5 p-4 rounded-2xl bg-brand-sand/50 border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="text-[11px] font-bold uppercase text-stone-500 block">Your Custom Blend:</span>
+            <p id="customSelectionText" class="text-xs sm:text-sm font-extrabold text-brand-dark italic">Tap up to 4 ingredients above to craft your juice.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="clearCustomJuice()" class="px-3 py-1.5 rounded-xl border border-stone-300 text-xs font-bold hover:bg-stone-100 text-stone-700">Clear</button>
+            <a href="tel:+447446446006" class="px-4 py-1.5 rounded-xl bg-brand-green text-white text-xs font-extrabold hover:bg-emerald-800 transition flex items-center gap-1.5">
+              <i data-lucide="phone" class="w-3.5 h-3.5"></i> Order This Mix
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. SMOOTHIES & BOOSTERS SECTION -->
+    <section id="section-smoothies" class="menu-section">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-brand-yellow/50 pb-3 mb-6 gap-2">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-black uppercase text-amber-700 tracking-wider">
+            <span>Made With Fresh Fruits</span>
+          </div>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-brand-dark">Fresh Fruit Smoothies</h2>
+        </div>
+        <div class="text-xs sm:text-sm font-black text-stone-700 bg-amber-50 px-3.5 py-1.5 rounded-xl border border-amber-200">
+          <span>All Smoothies: <strong class="text-amber-800 text-base">£5.95</strong></span>
+        </div>
+      </div>
+
+      <!-- Smoothie items list -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- Blue Blast -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-amber-400 transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Blue Blast</h3>
+            <span class="text-xs font-black px-2 py-0.5 rounded-md bg-amber-100 text-amber-900">£5.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-amber-700">Recipe:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Apple, Banana, Blueberry, Dragon fruit, Lime, Mango</p>
+        </div>
+
+        <!-- Cherry Berry -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-amber-400 transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Cherry Berry</h3>
+            <span class="text-xs font-black px-2 py-0.5 rounded-md bg-amber-100 text-amber-900">£5.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-amber-700">Recipe:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Banana, Blackcurrants, Strawberries, Sweet Cherry</p>
+        </div>
+
+        <!-- Green Reviver -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-amber-400 transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Green Reviver</h3>
+            <span class="text-xs font-black px-2 py-0.5 rounded-md bg-amber-100 text-amber-900">£5.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-amber-700">Recipe:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Banana, Kale, Lemongrass, Mango</p>
+        </div>
+
+        <!-- Raspberry Heaven -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-amber-400 transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Raspberry Heaven</h3>
+            <span class="text-xs font-black px-2 py-0.5 rounded-md bg-amber-100 text-amber-900">£5.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-amber-700">Recipe:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Apple, Blueberries, Mango, Raspberries</p>
+        </div>
+
+        <!-- Coconut Crush -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-amber-400 transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Coconut Crush</h3>
+            <span class="text-xs font-black px-2 py-0.5 rounded-md bg-amber-100 text-amber-900">£5.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-amber-700">Recipe:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Coconut, Pineapple, Coconut Water</p>
+        </div>
+
+        <!-- Berry Burst -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-amber-400 transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Berry Burst</h3>
+            <span class="text-xs font-black px-2 py-0.5 rounded-md bg-amber-100 text-amber-900">£5.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-amber-700">Recipe:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Banana, Blackberries, Blackcurrants, Blueberries</p>
+        </div>
+
+        <!-- Passion Storm -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-amber-400 transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Passion Storm</h3>
+            <span class="text-xs font-black px-2 py-0.5 rounded-md bg-amber-100 text-amber-900">£5.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-amber-700">Recipe:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Aloevera, Guava, Papaya, Passion fruit, Peach, Pineapple</p>
+        </div>
+
+        <!-- Pineapple Sunset -->
+        <div class="menu-item-card bg-white p-5 rounded-2xl border border-stone-200 shadow-2xs hover:border-amber-400 transition">
+          <div class="flex justify-between items-start">
+            <h3 class="font-display font-black text-lg text-brand-dark">Pineapple Sunset</h3>
+            <span class="text-xs font-black px-2 py-0.5 rounded-md bg-amber-100 text-amber-900">£5.95</span>
+          </div>
+          <p class="text-xs text-stone-500 font-bold uppercase tracking-wider mt-1 text-amber-700">Recipe:</p>
+          <p class="text-sm text-stone-700 font-semibold mt-0.5">Mango, Papaya, Pineapple</p>
+        </div>
+
+      </div>
+
+      <!-- OFFICIAL BOOSTERS BOX -->
+      <div class="mt-6 bg-gradient-to-r from-amber-500 to-amber-600 text-white p-6 rounded-3xl shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="zap" class="w-5 h-5 text-yellow-200"></i>
+              <h3 class="font-display font-black text-xl tracking-tight">Fuel Boosters Menu</h3>
+            </div>
+            <p class="text-xs text-amber-100 mt-1">Upgrade any smoothie or juice with extra fitness and wellness power (+£1.00 each):</p>
+          </div>
+          <span class="px-3 py-1 rounded-xl bg-black/20 text-white font-extrabold text-xs whitespace-nowrap">
+            +£1.00 per boost
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 mt-4">
+          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+            <span class="text-xs font-extrabold block">Super Fruit</span>
+            <span class="text-[10px] text-amber-200">+£1.00</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+            <span class="text-xs font-extrabold block">Whey Protein</span>
+            <span class="text-[10px] text-amber-200">+£1.00</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+            <span class="text-xs font-extrabold block">Chia Seeds</span>
+            <span class="text-[10px] text-amber-200">+£1.00</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+            <span class="text-xs font-extrabold block">Spirulina</span>
+            <span class="text-[10px] text-amber-200">+£1.00</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+            <span class="text-xs font-extrabold block">Vegan Protein</span>
+            <span class="text-[10px] text-amber-200">+£1.00</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+            <span class="text-xs font-extrabold block">Creatine</span>
+            <span class="text-[10px] text-amber-200">+£1.00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. HOT CROISSANT SECTION (BUILD YOUR OWN SYSTEM) -->
+    <section id="section-croissants" class="menu-section">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-rose-300 pb-3 mb-6 gap-2">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-black uppercase text-brand-red tracking-wider">
+            <span>Freshly Baked Daily Counter</span>
+          </div>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-brand-dark">Hot Croissant Creation</h2>
+        </div>
+        <div class="text-xs sm:text-sm font-black text-stone-700 bg-pink-50 px-3.5 py-1.5 rounded-xl border border-pink-200">
+          <span>Complete Loaded Croissant: <strong class="text-brand-red text-base">£5.95</strong></span>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Board Breakdown -->
+      <div class="bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm space-y-6">
+        
+        <p class="text-xs sm:text-sm text-stone-600 font-medium">
+          Warm, flaky, butter croissant freshly toasted and built with your choice of Base, Chocolate/Sweet treat Flavour, and gourmet Sauce drizzle:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Step 1: Base -->
+          <div class="p-5 rounded-2xl bg-brand-sand/40 border border-stone-200">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-6 h-6 rounded-full bg-brand-red text-white text-xs font-extrabold flex items-center justify-center">1</span>
+              <h4 class="font-display font-black text-base text-stone-900">Choose Your Base</h4>
+            </div>
+            <ul class="space-y-1.5 text-xs font-bold text-stone-700">
+              <li class="flex items-center gap-2">• Milk Chocolate</li>
+              <li class="flex items-center gap-2">• White Chocolate</li>
+              <li class="flex items-center gap-2">• Peanut Butter</li>
+              <li class="flex items-center gap-2">• Hazelnut Chocolate</li>
+            </ul>
+          </div>
+
+          <!-- Step 2: Flavour -->
+          <div class="p-5 rounded-2xl bg-brand-sand/40 border border-stone-200">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-6 h-6 rounded-full bg-brand-red text-white text-xs font-extrabold flex items-center justify-center">2</span>
+              <h4 class="font-display font-black text-base text-stone-900">Add a Flavour</h4>
+            </div>
+            <div class="grid grid-cols-2 gap-1 text-[11px] font-bold text-stone-700">
+              <span>• Kinder Bueno</span>
+              <span>• Milkyway</span>
+              <span>• Ferrero Rocher</span>
+              <span>• Bounty</span>
+              <span>• Crunchies</span>
+              <span>• Oreo</span>
+              <span>• Galaxy</span>
+              <span>• Snickers</span>
+              <span>• Twix</span>
+              <span>• Kitkat</span>
+              <span>• Biscoff</span>
+              <span>• Classic Magnum</span>
+              <span>• White Magnum</span>
+              <span>• Almond Magnum</span>
+              <span class="col-span-2 text-brand-red">• Billionaires Magnum</span>
+            </div>
+          </div>
+
+          <!-- Step 3: Sauce -->
+          <div class="p-5 rounded-2xl bg-brand-sand/40 border border-stone-200">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="w-6 h-6 rounded-full bg-brand-red text-white text-xs font-extrabold flex items-center justify-center">3</span>
+              <h4 class="font-display font-black text-base text-stone-900">Add a Sauce</h4>
+            </div>
+            <div class="grid grid-cols-2 gap-1 text-[11px] font-bold text-stone-700">
+              <span>• Cherry</span>
+              <span>• Caramel</span>
+              <span>• Strawberry</span>
+              <span>• Milk Chocolate</span>
+              <span>• Raspberry</span>
+              <span>• White Chocolate</span>
+              <span>• Pistachio</span>
+              <span>• Hazelnut</span>
+              <span>• Kitkat</span>
+              <span>• Biscoff</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-2 border-t border-stone-100">
+          <span>Served warm at the shop counter. Best paired with freshly squeezed orange juice.</span>
+          <a href="tel:+447446446006" class="font-extrabold text-brand-red hover:underline">Pre-order for fast collection &rarr;</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. MILKSHAKES SECTION -->
+    <section id="section-milkshakes" class="menu-section">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-purple-300 pb-3 mb-6 gap-2">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-black uppercase text-purple-700 tracking-wider">
+            <span>Handspun Gelato Shakes</span>
+          </div>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-brand-dark">Gourmet Milkshakes</h2>
+        </div>
+        <div class="text-xs sm:text-sm font-black text-stone-700 bg-purple-50 px-3.5 py-1.5 rounded-xl border border-purple-200">
+          <span>All Milkshakes: <strong class="text-purple-800 text-base">£5.50</strong></span>
+        </div>
+      </div>
+
+      <p class="text-xs text-stone-600 mb-4 font-medium">Spun with whole dairy milk, creamy vanilla gelato, and loaded chocolate toppings:</p>
+
+      <!-- 13 Shake Items from Official Menu -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Banana</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Classic fruit milkshake</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Strawberry</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Sweet berry milkshake</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Kinder Bueno</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Hazelnut wafer crush</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Ferrero Rocher</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Roasted nutty crunch</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Crunchies</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Honeycomb chocolate crunch</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Galaxy</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Velvety silky milk chocolate</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Snickers</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Peanut, caramel & nougat</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Twix</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Biscuit crust & caramel</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Kitkat</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Crispy cocoa wafer</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Biscoff</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Lotus caramelised spread</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Milkyway</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Fluffy malt nougat whip</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition">
+          <p class="font-display font-black text-base text-stone-900">Bounty</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Sweet coconut milk chocolate</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+        <div class="menu-item-card p-4 rounded-2xl bg-white border border-stone-200 hover:border-purple-400 transition col-span-2 sm:col-span-1">
+          <p class="font-display font-black text-base text-stone-900">Oreo</p>
+          <p class="text-[11px] text-stone-500 mt-0.5">Dark cocoa biscuit & creme</p>
+          <span class="text-xs font-bold text-purple-700 mt-2 block">£5.50</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. COMING SOON: ARTISAN COFFEE BAR TEASER -->
+    <section id="coffee-teaser" class="menu-section bg-gradient-to-br from-amber-950 via-stone-900 to-black text-white p-6 sm:p-10 rounded-3xl relative overflow-hidden shadow-xl">
+      <!-- Decorative background blur -->
+      <div class="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-amber-600/20 blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 max-w-2xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-black uppercase tracking-wider mb-3">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Coming Very Soon
+        </div>
+
+        <h2 class="font-display text-3xl sm:text-4xl font-black text-white tracking-tight">
+          Artisan Coffee Bar at Human Fuel Station
+        </h2>
+
+        <p class="text-stone-300 text-sm mt-2 leading-relaxed">
+          We’re expanding our Newport station with freshly pulled specialty espresso, silky flat whites, iced caramel lattes, ceremonial matcha, and hot morning brews. Your new all-in-one daily stop.
+        </p>
+
+        <!-- Preview offerings grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+            <span class="text-lg mb-1 block">☕</span>
+            <span class="text-xs font-bold text-stone-200 block">Specialty Espresso</span>
+          </div>
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+            <span class="text-lg mb-1 block">🥛</span>
+            <span class="text-xs font-bold text-stone-200 block">Silky Flat White</span>
+          </div>
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+            <span class="text-lg mb-1 block">🧊</span>
+            <span class="text-xs font-bold text-stone-200 block">Iced Fuel Lattes</span>
+          </div>
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+            <span class="text-lg mb-1 block">🍵</span>
+            <span class="text-xs font-bold text-stone-200 block">Ceremonial Matcha</span>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-4 text-xs text-amber-200">
+          <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Oat & Almond Milk options</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Pairs with hot croissants</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. VISIT US / LOCATION & MAP CARD -->
+    <section class="bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm" id="visit">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        
+        <div>
+          <span class="text-xs font-black uppercase text-brand-red tracking-wider">Newport Location</span>
+          <h3 class="font-display text-2xl sm:text-3xl font-black text-brand-dark mt-1">Visit Human Fuel Station</h3>
+          <p class="text-xs sm:text-sm text-stone-600 mt-2">
+            Right on Upper Dock Street in Newport town centre. Pop in for a fast grab-and-go juice, pre-order your team round, or unwind inside.
+          </p>
+
+          <div class="space-y-3 mt-5 text-xs text-stone-700">
+            <div class="flex items-start gap-3">
+              <i data-lucide="map-pin" class="w-4 h-4 text-brand-red flex-shrink-0 mt-0.5"></i>
+              <div>
+                <strong>12 Upper Dock St</strong>, Newport, NP20 1DF, South Wales
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="phone" class="w-4 h-4 text-brand-green flex-shrink-0"></i>
+              <a href="tel:+447446446006" class="font-bold hover:underline">+44 7446 446006</a>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="clock" class="w-4 h-4 text-amber-600 flex-shrink-0"></i>
+              <span>Mon–Sat: 8:00 AM – 6:00 PM | Sun: 10:00 AM – 4:30 PM</span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 mt-6">
+            <a href="https://maps.google.com/?q=12+Upper+Dock+St,+Newport+NP20+1DF" target="_blank" rel="noopener" class="px-4 py-2.5 rounded-xl bg-brand-red hover:bg-brand-crimson text-white font-extrabold text-xs transition flex items-center gap-2">
+              <i data-lucide="navigation" class="w-3.5 h-3.5"></i> Open in Maps
+            </a>
+            <a href="tel:+447446446006" class="px-4 py-2.5 rounded-xl border border-stone-300 hover:border-black text-stone-800 font-extrabold text-xs transition flex items-center gap-2">
+              <i data-lucide="phone" class="w-3.5 h-3.5"></i> Call Ahead
+            </a>
+          </div>
+        </div>
+
+        <!-- Styled Address Block -->
+        <div class="bg-brand-sand/60 p-6 rounded-2xl border border-stone-200 flex flex-col justify-between h-full">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-black uppercase tracking-wider text-brand-dark">Shopfront Visual</span>
+              <span class="text-[11px] font-bold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">Open Daily</span>
+            </div>
+            <p class="font-display font-black text-xl text-stone-900 leading-snug">
+              Look for the vibrant crimson red shopfront at 12 Upper Dock St.
+            </p>
+            <p class="text-xs text-stone-500 mt-2">
+              Fresh produce delivered and cold-pressed every single morning.
+            </p>
+          </div>
+          
+          <div class="pt-4 mt-4 border-t border-stone-200 flex items-center justify-between text-xs">
+            <span class="font-bold text-stone-700">Instagram:</span>
+            <a href="https://instagram.com/humanfuelstation" target="_blank" class="font-black text-brand-red hover:underline flex items-center gap-1">
+              <span>@humanfuelstation</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SIMPLE FOOTER -->
+  <footer class="bg-white border-t border-stone-200 py-8 text-center text-xs text-stone-500">
+    <div class="max-w-6xl mx-auto px-4 space-y-2">
+      <p class="font-bold text-stone-800">Human Fuel Station — Newport's Daily Juice & Fuel Bar</p>
+      <p>12 Upper Dock St, Newport, NP20 1DF | Tel: +44 7446 446006</p>
+      <p class="text-[11px] text-stone-400 pt-2">&copy; 2026 Human Fuel Station. Fast digital menu for customer reference.</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT: FILTERING, SEARCH & CUSTOM JUICE BUILDER -->
+  <script>
+    // 12 Board Ingredients for "Create your own juice"
+    const ingredients = [
+      "Apple", "Carrot", "Orange", "Pineapple",
+      "Grapefruit", "Coconut Water", "Spinach", "Mango",
+      "Ginger", "Lime", "Celery", "Kale"
+    ];
+
+    let selectedIngredients = [];
+
+    // Initialize DIY juice builder buttons
+    function initCustomJuiceGrid() {
+      const grid = document.getElementById('customJuiceGrid');
+      grid.innerHTML = ingredients.map(ing => `
+        <button type="button" onclick="toggleIngredient('${ing}')" id="btn-ing-${ing.replace(/\s+/g, '')}"
+                class="p-2.5 rounded-xl border border-stone-200 bg-white text-xs font-bold text-stone-700 hover:border-brand-green text-left transition flex items-center justify-between">
+          <span>${ing}</span>
+          <span class="check-mark hidden w-4 h-4 rounded-full bg-brand-green text-white text-[10px] items-center justify-center">✓</span>
+        </button>
+      `).join('');
+    }
+
+    function toggleIngredient(ing) {
+      const cleanId = ing.replace(/\s+/g, '');
+      const btn = document.getElementById(`btn-ing-${cleanId}`);
+      const check = btn.querySelector('.check-mark');
+
+      if (selectedIngredients.includes(ing)) {
+        selectedIngredients = selectedIngredients.filter(i => i !== ing);
+        btn.classList.remove('border-brand-green', 'bg-brand-mint', 'text-brand-green');
+        btn.classList.add('bg-white', 'text-stone-700');
+        check.classList.add('hidden');
+        check.classList.remove('flex');
+      } else {
+        if (selectedIngredients.length >= 4) {
+          // Visual feedback that max 4 reached
+          btn.classList.add('border-brand-red');
+          setTimeout(() => btn.classList.remove('border-brand-red'), 400);
+          return;
+        }
+        selectedIngredients.push(ing);
+        btn.classList.add('border-brand-green', 'bg-brand-mint', 'text-brand-green');
+        btn.classList.remove('bg-white', 'text-stone-700');
+        check.classList.remove('hidden');
+        check.classList.add('flex');
+      }
+
+      updateCustomSelectionUI();
+    }
+
+    function updateCustomSelectionUI() {
+      document.getElementById('selectedCount').innerText = `${selectedIngredients.length} / 4`;
+      const textElem = document.getElementById('customSelectionText');
+
+      if (selectedIngredients.length === 0) {
+        textElem.innerText = "Tap up to 4 ingredients above to craft your juice.";
+      } else {
+        textElem.innerText = selectedIngredients.join(" + ");
+      }
+    }
+
+    function clearCustomJuice() {
+      selectedIngredients = [];
+      document.querySelectorAll('#customJuiceGrid button').forEach(btn => {
+        btn.classList.remove('border-brand-green', 'bg-brand-mint', 'text-brand-green');
+        btn.classList.add('bg-white', 'text-stone-700');
+        const check = btn.querySelector('.check-mark');
+        check.classList.add('hidden');
+        check.classList.remove('flex');
+      });
+      updateCustomSelectionUI();
+    }
+
+    // Category Filter Navigation
+    function setFilter(category) {
+      // Update pills
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        if (btn.getAttribute('data-category') === category) {
+          btn.classList.add('active-pill');
+        } else {
+          btn.classList.remove('active-pill');
+        }
+      });
+
+      // Filter sections
+      const sections = {
+        juices: document.getElementById('section-juices'),
+        smoothies: document.getElementById('section-smoothies'),
+        croissants: document.getElementById('section-croissants'),
+        milkshakes: document.getElementById('section-milkshakes'),
+        coffee: document.getElementById('coffee-teaser')
+      };
+
+      if (category === 'all') {
+        Object.values(sections).forEach(sec => sec.classList.remove('hidden'));
+      } else {
+        Object.keys(sections).forEach(key => {
+          if (key === category) {
+            sections[key].classList.remove('hidden');
+          } else {
+            sections[key].classList.add('hidden');
+          }
+        });
+      }
+    }
+
+    // Real-time Text Search for Menu Items
+    const searchInput = document.getElementById('menuSearch');
+    searchInput.addEventListener('input', function(e) {
+      const term = e.target.value.toLowerCase().trim();
+      const itemCards = document.querySelectorAll('.menu-item-card');
+
+      if (!term) {
+        itemCards.forEach(card => card.classList.remove('hidden'));
+        return;
+      }
+
+      // If user is searching, show all sections
+      document.querySelectorAll('.menu-section').forEach(sec => sec.classList.remove('hidden'));
+
+      itemCards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(term)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+
+    // Window Load
+    window.onload = function() {
+      initCustomJuiceGrid();
+      lucide.createIcons();
+    };
+  </script>
+</body>
+</html>
