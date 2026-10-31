@@ -52,17 +52,21 @@
 </head>
 <body class="bg-brand-cream text-brand-dark font-sans selection:bg-brand-red selection:text-white antialiased min-h-screen flex flex-col">
 
-  <!-- TOP BAR: NEWPORT STORE INFO -->
-  <div class="bg-brand-dark text-white text-xs py-2.5 px-4 text-center flex flex-wrap items-center justify-center gap-3">
-    <span class="inline-flex items-center gap-1.5 font-bold text-amber-400">
-      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-      12 Upper Dock St, Newport (NP20 1DF)
+<!-- TOP BAR: NEWPORT STORE INFO -->
+<div class="bg-brand-dark text-white text-xs py-2.5 px-4 text-center flex flex-wrap items-center justify-center gap-3">
+  <span class="inline-flex items-center gap-2 font-bold text-amber-400">
+    <span id="shop-status-dot" class="relative flex h-2.5 w-2.5">
+      <span id="shop-status-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+      <span id="shop-status-core" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
     </span>
-    <span class="text-stone-400 hidden sm:inline">•</span>
-    <span class="text-stone-300">Open Mon–Sat 8am–6pm | Sun 10am–4:30pm</span>
-    <span class="text-stone-400 hidden sm:inline">•</span>
-    <a href="tel:+447446446006" class="underline font-bold text-brand-yellow hover:text-white transition-colors">Call Shop: +44 7446 446006</a>
-  </div>
+    <span id="shop-status-text" class="text-emerald-400 font-extrabold uppercase text-[10px] tracking-wide">OPEN</span>
+    <span>12 Upper Dock St, Newport (NP20 1DF)</span>
+  </span>
+  <span class="text-stone-400 hidden sm:inline">•</span>
+  <span class="text-stone-300">Open Mon-Sat 8am-6pm | Sun 10am-4:30pm</span>
+  <span class="text-stone-400 hidden sm:inline">•</span>
+  <a href="tel:+447446446006" class="underline font-bold text-brand-yellow hover:text-white transition-colors">Call Shop: +44 7446 446006</a>
+</div>
 
  <!-- STICKY HEADER -->
 <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200">
@@ -901,5 +905,50 @@
       lucide.createIcons();
     };
   </script>
+
+  <script>
+  function updateShopOpenStatus() {
+    // Get current time in UK timezone (Europe/London)
+    const now = new Date();
+    const ukTimeStr = now.toLocaleString("en-GB", { timeZone: "Europe/London" });
+    const ukDate = new Date(ukTimeStr);
+
+    const day = ukDate.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    const currentMinutes = ukDate.getHours() * 60 + ukDate.getMinutes();
+
+    let isOpen = false;
+
+    if (day === 0) {
+      // Sunday: 10:00 AM (600 mins) to 4:30 PM (990 mins)
+      isOpen = (currentMinutes >= 600 && currentMinutes < 990);
+    } else {
+      // Monday to Saturday: 8:00 AM (480 mins) to 6:00 PM (1080 mins)
+      isOpen = (currentMinutes >= 480 && currentMinutes < 1080);
+    }
+
+    const dotPing = document.getElementById('shop-status-ping');
+    const dotCore = document.getElementById('shop-status-core');
+    const statusText = document.getElementById('shop-status-text');
+
+    if (isOpen) {
+      // Green when open
+      dotPing.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
+      dotCore.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500";
+      statusText.className = "text-emerald-400 font-extrabold uppercase text-[10px] tracking-wide";
+      statusText.textContent = "OPEN NOW";
+    } else {
+      // Red when closed (solid, no distracting ping)
+      dotPing.className = "hidden";
+      dotCore.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500";
+      statusText.className = "text-rose-400 font-extrabold uppercase text-[10px] tracking-wide";
+      statusText.textContent = "CLOSED";
+    }
+  }
+
+  // Run on page load and refresh check every 60 seconds
+  updateShopOpenStatus();
+  setInterval(updateShopOpenStatus, 60000);
+</script>
+
 </body>
 </html>
