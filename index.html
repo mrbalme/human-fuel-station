@@ -863,8 +863,7 @@
       coffee: document.getElementById('coffee-teaser')
     };
 
-    function setFilter(category) {
-      // Update pills
+    function updateActiveCategory(category) {
       document.querySelectorAll('.cat-pill').forEach(btn => {
         if (btn.getAttribute('data-category') === category) {
           btn.classList.add('active-pill');
@@ -872,6 +871,16 @@
           btn.classList.remove('active-pill');
         }
       });
+    }
+
+    function updateActiveCategoryForSection(section) {
+      const [category] = Object.entries(menuSections)
+        .find(([, menuSection]) => menuSection === section) || [];
+      if (category) updateActiveCategory(category);
+    }
+
+    function setFilter(category) {
+      updateActiveCategory(category);
 
       // Filter sections
       if (category === 'all') {
@@ -894,16 +903,17 @@
 
     // Real-time Text Search for Menu Items
     const searchInput = document.getElementById('searchInput');
-    let searchResultTarget = null;
+    let searchResultSection = null;
     searchInput.addEventListener('input', function(e) {
       const term = e.target.value.toLowerCase().trim();
       const itemCards = document.querySelectorAll('.menu-item-card');
       const searchTargets = [];
-      searchResultTarget = null;
+      searchResultSection = null;
 
       if (!term) {
         itemCards.forEach(card => card.classList.remove('hidden'));
         Object.values(menuSections).forEach(section => section.classList.remove('hidden'));
+        updateActiveCategory('all');
         return;
       }
 
@@ -944,24 +954,28 @@
         if (categoryMatch && !hasMatchingCard) searchTargets.push(section);
       });
 
-      searchResultTarget = searchTargets.sort((a, b) => (
-        a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1
-      ))[0];
+      const firstMatchingCard = searchTargets
+        .filter(target => target.matches('.menu-item-card'))
+        .sort((a, b) => (
+          a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1
+        ))[0];
+      const firstMatchingTarget = firstMatchingCard || searchTargets
+        .filter(target => target.matches('.menu-section'))
+        .sort((a, b) => (
+          a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1
+        ))[0];
+      searchResultSection = firstMatchingTarget?.closest('.menu-section') || null;
+
+      if (searchResultSection) updateActiveCategoryForSection(searchResultSection);
     });
 
     searchInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
         e.preventDefault();
         searchInput.blur();
-        if (searchResultTarget) {
-          const stickyNavigation = document.getElementById('menu-navigation');
-          const stickyTop = parseFloat(getComputedStyle(stickyNavigation).top) || 0;
-          const scrollOffset = Math.max(150, stickyTop + stickyNavigation.offsetHeight + 12);
-
-          window.scrollTo({
-            top: Math.max(0, searchResultTarget.getBoundingClientRect().top + window.scrollY - scrollOffset),
-            behavior: 'smooth'
-          });
+        if (searchResultSection) {
+          updateActiveCategoryForSection(searchResultSection);
+          scrollMenuTargetIntoView(searchResultSection);
         }
       }
     });
