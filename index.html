@@ -124,7 +124,7 @@
   </section>
 
   <!-- SEARCH & SECTION CATEGORY SWITCHER -->
-  <section id="menu-navigation" class="sticky top-[76px] sm:top-[88px] z-30 bg-brand-cream/95 backdrop-blur-md border-b border-stone-200 py-3">
+  <section id="menu-navigation" class="sticky top-[76px] sm:top-[88px] z-30 bg-white/95 backdrop-blur-md border-b border-stone-200 py-3">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col gap-3">
       
       <!-- Category Tabs matching the official menu -->
@@ -163,7 +163,7 @@
   <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 flex-1 space-y-12" id="menu-board">
 
     <!-- ALLERGENS CALLOUT BANNER (DIRECT FROM BOARD) -->
-    <div class="p-4 rounded-2xl bg-brand-red/10 border-2 border-brand-red/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+    <div id="allergens-callout" class="p-4 rounded-2xl bg-brand-red/10 border-2 border-brand-red/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center flex-shrink-0">
           <i data-lucide="shield-alert" class="w-5 h-5"></i>
@@ -896,18 +896,26 @@
 
     // Real-time Text Search for Menu Items
     const searchInput = document.getElementById('searchInput');
+    let searchScrollTimeout;
     searchInput.addEventListener('input', function(e) {
+      clearTimeout(searchScrollTimeout);
       const term = e.target.value.toLowerCase().trim();
       const itemCards = document.querySelectorAll('.menu-item-card');
+      const allergensCallout = document.getElementById('allergens-callout');
+      const customJuice = document.getElementById('custom-juice');
+      const searchTargets = [];
 
       if (!term) {
         itemCards.forEach(card => card.classList.remove('hidden'));
         Object.values(menuSections).forEach(section => section.classList.remove('hidden'));
+        allergensCallout.classList.remove('hidden');
+        customJuice.classList.remove('hidden');
         return;
       }
 
-      // If user is searching, show all sections
-      Object.values(menuSections).forEach(section => section.classList.remove('hidden'));
+      const allergensMatch = allergensCallout.innerText.toLowerCase().includes(term);
+      allergensCallout.classList.toggle('hidden', !allergensMatch);
+      if (allergensMatch) searchTargets.push(allergensCallout);
 
       const matchingCategories = new Set(
         Object.entries(menuSections)
@@ -919,17 +927,42 @@
           .map(([category]) => category)
       );
 
-      itemCards.forEach(card => {
-        const text = card.innerText.toLowerCase();
-        const section = card.closest('.menu-section');
-        const category = Object.entries(menuSections)
-          .find(([, menuSection]) => menuSection === section)?.[0];
-        if (text.includes(term) || matchingCategories.has(category)) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
+      Object.entries(menuSections).forEach(([category, section]) => {
+        const categoryMatch = matchingCategories.has(category);
+        const sectionCards = section.querySelectorAll('.menu-item-card');
+        let hasMatchingCard = false;
+
+        sectionCards.forEach(card => {
+          const matches = categoryMatch || card.innerText.toLowerCase().includes(term);
+          card.classList.toggle('hidden', !matches);
+          if (matches) {
+            hasMatchingCard = true;
+            if (!categoryMatch) searchTargets.push(card);
+          }
+        });
+
+        const customJuiceMatches = category === 'juices'
+          && (categoryMatch || customJuice.innerText.toLowerCase().includes(term));
+        if (category === 'juices') {
+          customJuice.classList.toggle('hidden', !customJuiceMatches);
+          if (customJuiceMatches && !categoryMatch) searchTargets.push(customJuice);
+        }
+
+        const textOnlySectionMatch = sectionCards.length === 0
+          && section.innerText.toLowerCase().includes(term);
+        section.classList.toggle('hidden', !categoryMatch && !hasMatchingCard && !customJuiceMatches && !textOnlySectionMatch);
+
+        if (categoryMatch || (textOnlySectionMatch && !hasMatchingCard)) {
+          searchTargets.push(section);
         }
       });
+
+      const firstMatch = searchTargets.sort((a, b) => (
+        a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1
+      ))[0];
+      if (firstMatch) {
+        searchScrollTimeout = setTimeout(() => scrollMenuTargetIntoView(firstMatch), 300);
+      }
     });
 
     searchInput.addEventListener('keydown', function(e) {
