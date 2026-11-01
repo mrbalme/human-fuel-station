@@ -125,7 +125,7 @@
 
   <!-- SEARCH & SECTION CATEGORY SWITCHER -->
   <section id="menu-navigation" class="sticky top-[76px] sm:top-[88px] z-30 bg-brand-cream/95 backdrop-blur-md border-b border-stone-200 py-3">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col gap-3">
       
       <!-- Category Tabs matching the official menu -->
       <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="categoryNav">
@@ -150,9 +150,9 @@
       </div>
 
       <!-- Quick Search Input -->
-      <div class="relative w-full md:w-64 flex-shrink-0">
+      <div class="relative w-full">
         <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3 top-2.5"></i>
-        <input type="text" id="menuSearch" placeholder="Search juice, fruit, biscuit..." 
+        <input type="text" id="searchInput" placeholder="Search juice, fruit, biscuit..."
                class="w-full pl-9 pr-3 py-1.5 rounded-xl bg-white border border-stone-300 text-base md:text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-red">
       </div>
 
@@ -895,10 +895,8 @@
     }
 
     // Real-time Text Search for Menu Items
-    const searchInput = document.getElementById('menuSearch');
-    let searchNavigationTimeout;
+    const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', function(e) {
-      clearTimeout(searchNavigationTimeout);
       const term = e.target.value.toLowerCase().trim();
       const itemCards = document.querySelectorAll('.menu-item-card');
 
@@ -921,7 +919,6 @@
           .map(([category]) => category)
       );
 
-      let firstMatch = null;
       itemCards.forEach(card => {
         const text = card.innerText.toLowerCase();
         const section = card.closest('.menu-section');
@@ -929,17 +926,16 @@
           .find(([, menuSection]) => menuSection === section)?.[0];
         if (text.includes(term) || matchingCategories.has(category)) {
           card.classList.remove('hidden');
-          if (!firstMatch) firstMatch = card;
         } else {
           card.classList.add('hidden');
         }
       });
+    });
 
-      const target = matchingCategories.size > 0
-        ? menuSections[matchingCategories.values().next().value]
-        : firstMatch;
-      if (target) {
-        searchNavigationTimeout = setTimeout(() => scrollMenuTargetIntoView(target), 500);
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        searchInput.blur();
       }
     });
 
