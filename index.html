@@ -128,25 +128,28 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col gap-3">
       
       <!-- Category Tabs matching the official menu -->
-      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="categoryNav">
-        <button onclick="setFilter('all')" data-category="all" class="cat-pill active-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
-          Full Menu
-        </button>
-        <button onclick="setFilter('juices')" data-category="juices" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
-          🍏 Fresh Juices
-        </button>
-        <button onclick="setFilter('smoothies')" data-category="smoothies" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
-          🥤 Smoothies & Boosters
-        </button>
-        <button onclick="setFilter('croissants')" data-category="croissants" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
-          🥐 Hot Croissants
-        </button>
-        <button onclick="setFilter('milkshakes')" data-category="milkshakes" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
-          🥛 Milkshakes
-        </button>
-        <button onclick="setFilter('coffee')" data-category="coffee" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-black border border-amber-300 bg-amber-50 text-amber-900 whitespace-nowrap transition">
-          ☕ Coffee (Teaser)
-        </button>
+      <div class="relative w-full">
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="categoryNav">
+          <button onclick="setFilter('all')" data-category="all" class="cat-pill active-pill shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+            Full Menu
+          </button>
+          <button onclick="setFilter('juices')" data-category="juices" class="cat-pill shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+            🍏 Fresh Juices
+          </button>
+          <button onclick="setFilter('smoothies')" data-category="smoothies" class="cat-pill shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+            🥤 Smoothies & Boosters
+          </button>
+          <button onclick="setFilter('croissants')" data-category="croissants" class="cat-pill shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+            🥐 Hot Croissants
+          </button>
+          <button onclick="setFilter('milkshakes')" data-category="milkshakes" class="cat-pill shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+            🥛 Milkshakes
+          </button>
+          <button onclick="setFilter('coffee')" data-category="coffee" class="cat-pill shrink-0 px-3.5 py-1.5 rounded-xl text-xs font-black border border-amber-300 bg-amber-50 text-amber-900 whitespace-nowrap transition">
+            ☕ Coffee (Teaser)
+          </button>
+        </div>
+        <div class="pointer-events-none absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white via-white/80 to-transparent"></div>
       </div>
 
       <!-- Quick Search Input -->
