@@ -849,6 +849,25 @@
     }
 
     // Category Filter Navigation
+    function scrollMenuTargetIntoView(target) {
+      const navigation = document.getElementById('menu-navigation');
+      const navigationTop = parseFloat(getComputedStyle(navigation).top) || 0;
+      const scrollOffset = navigationTop + navigation.offsetHeight + 12;
+
+      window.scrollTo({
+        top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - scrollOffset),
+        behavior: 'smooth'
+      });
+    }
+
+    const menuSections = {
+      juices: document.getElementById('section-juices'),
+      smoothies: document.getElementById('section-smoothies'),
+      croissants: document.getElementById('section-croissants'),
+      milkshakes: document.getElementById('section-milkshakes'),
+      coffee: document.getElementById('coffee-teaser')
+    };
+
     function setFilter(category) {
       // Update pills
       document.querySelectorAll('.cat-pill').forEach(btn => {
@@ -860,37 +879,22 @@
       });
 
       // Filter sections
-      const sections = {
-        juices: document.getElementById('section-juices'),
-        smoothies: document.getElementById('section-smoothies'),
-        croissants: document.getElementById('section-croissants'),
-        milkshakes: document.getElementById('section-milkshakes'),
-        coffee: document.getElementById('coffee-teaser')
-      };
-
       if (category === 'all') {
-        Object.values(sections).forEach(sec => sec.classList.remove('hidden'));
+        Object.values(menuSections).forEach(sec => sec.classList.remove('hidden'));
       } else {
-        Object.keys(sections).forEach(key => {
+        Object.keys(menuSections).forEach(key => {
           if (key === category) {
-            sections[key].classList.remove('hidden');
+            menuSections[key].classList.remove('hidden');
           } else {
-            sections[key].classList.add('hidden');
+            menuSections[key].classList.add('hidden');
           }
         });
       }
 
       const target = category === 'all'
         ? document.getElementById('menu-board')
-        : sections[category];
-      const navigation = document.getElementById('menu-navigation');
-      const navigationTop = parseFloat(getComputedStyle(navigation).top) || 0;
-      const scrollOffset = navigationTop + navigation.offsetHeight + 12;
-
-      window.scrollTo({
-        top: Math.max(0, target.getBoundingClientRect().top + window.scrollY - scrollOffset),
-        behavior: 'smooth'
-      });
+        : menuSections[category];
+      scrollMenuTargetIntoView(target);
     }
 
     // Real-time Text Search for Menu Items
@@ -901,20 +905,41 @@
 
       if (!term) {
         itemCards.forEach(card => card.classList.remove('hidden'));
+        Object.values(menuSections).forEach(section => section.classList.remove('hidden'));
         return;
       }
 
       // If user is searching, show all sections
-      document.querySelectorAll('.menu-section').forEach(sec => sec.classList.remove('hidden'));
+      Object.values(menuSections).forEach(section => section.classList.remove('hidden'));
 
+      const matchingCategories = new Set(
+        Object.entries(menuSections)
+          .filter(([category, section]) => {
+            const categoryLabel = document.querySelector(`[data-category="${category}"]`).innerText;
+            const sectionTitle = section.querySelector('h2')?.innerText || '';
+            return `${categoryLabel} ${sectionTitle}`.toLowerCase().includes(term);
+          })
+          .map(([category]) => category)
+      );
+
+      let firstMatch = null;
       itemCards.forEach(card => {
         const text = card.innerText.toLowerCase();
-        if (text.includes(term)) {
+        const section = card.closest('.menu-section');
+        const category = Object.entries(menuSections)
+          .find(([, menuSection]) => menuSection === section)?.[0];
+        if (text.includes(term) || matchingCategories.has(category)) {
           card.classList.remove('hidden');
+          if (!firstMatch) firstMatch = card;
         } else {
           card.classList.add('hidden');
         }
       });
+
+      const target = matchingCategories.size > 0
+        ? menuSections[matchingCategories.values().next().value]
+        : firstMatch;
+      if (target) scrollMenuTargetIntoView(target);
     });
 
     // Window Load
