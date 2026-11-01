@@ -128,7 +128,10 @@
             🍏 Fresh Juices
           </button>
           <button onclick="setFilter('smoothies')" data-category="smoothies" class="cat-pill px-4 min-w-max shrink-0 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
-            🥤 Smoothies & Boosters
+            🥤 Smoothies
+          </button>
+          <button onclick="setFilter('boosters')" data-category="boosters" class="cat-pill px-4 min-w-max shrink-0 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
+            ⚡ Boosters
           </button>
           <button onclick="setFilter('croissants')" data-category="croissants" class="cat-pill px-4 min-w-max shrink-0 py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 whitespace-nowrap transition">
             🥐 Hot Croissants
@@ -299,7 +302,7 @@
       </div>
     </section>
 
-    <!-- 2. SMOOTHIES & BOOSTERS SECTION -->
+    <!-- 2. SMOOTHIES SECTION -->
     <section id="section-smoothies" class="menu-section">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-brand-yellow/50 pb-3 mb-6 gap-2">
         <div>
@@ -398,13 +401,16 @@
 
       </div>
 
-      <!-- OFFICIAL BOOSTERS BOX -->
-      <div class="mt-6 bg-gradient-to-r from-amber-500 to-amber-600 text-white p-6 rounded-3xl shadow-sm">
+    </section>
+
+    <!-- 3. FUEL BOOSTERS SECTION -->
+    <section id="section-boosters" class="menu-section">
+      <div class="bg-gradient-to-r from-amber-500 to-amber-600 text-white p-6 rounded-3xl shadow-sm">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div class="flex items-center gap-2">
               <i data-lucide="zap" class="w-5 h-5 text-yellow-200"></i>
-              <h3 class="font-display font-black text-xl tracking-tight">Fuel Boosters Menu</h3>
+              <h2 class="font-display font-black text-xl tracking-tight">Fuel Boosters Menu</h2>
             </div>
             <p class="text-xs text-amber-100 mt-1">Upgrade any smoothie or juice with extra fitness and wellness power (+£1.00 each):</p>
           </div>
@@ -414,27 +420,27 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 mt-4">
-          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+          <div class="menu-item-card p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
             <span class="text-xs font-extrabold block">Super Fruit</span>
             <span class="text-[10px] text-amber-200">+£1.00</span>
           </div>
-          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+          <div class="menu-item-card p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
             <span class="text-xs font-extrabold block">Whey Protein</span>
             <span class="text-[10px] text-amber-200">+£1.00</span>
           </div>
-          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+          <div class="menu-item-card p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
             <span class="text-xs font-extrabold block">Chia Seeds</span>
             <span class="text-[10px] text-amber-200">+£1.00</span>
           </div>
-          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+          <div class="menu-item-card p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
             <span class="text-xs font-extrabold block">Spirulina</span>
             <span class="text-[10px] text-amber-200">+£1.00</span>
           </div>
-          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+          <div class="menu-item-card p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
             <span class="text-xs font-extrabold block">Vegan Protein</span>
             <span class="text-[10px] text-amber-200">+£1.00</span>
           </div>
-          <div class="p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
+          <div class="menu-item-card p-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-center">
             <span class="text-xs font-extrabold block">Creatine</span>
             <span class="text-[10px] text-amber-200">+£1.00</span>
           </div>
@@ -442,7 +448,7 @@
       </div>
     </section>
 
-    <!-- 3. HOT CROISSANT SECTION (BUILD YOUR OWN SYSTEM) -->
+    <!-- 4. HOT CROISSANT SECTION (BUILD YOUR OWN SYSTEM) -->
     <section id="section-croissants" class="menu-section">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-rose-300 pb-3 mb-6 gap-2">
         <div>
@@ -534,7 +540,7 @@
       </div>
     </section>
 
-    <!-- 4. MILKSHAKES SECTION -->
+    <!-- 5. MILKSHAKES SECTION -->
     <section id="section-milkshakes" class="menu-section">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-purple-300 pb-3 mb-6 gap-2">
         <div>
@@ -634,7 +640,7 @@
       </div>
     </section>
 
-    <!-- 5. COMING SOON: ARTISAN COFFEE BAR TEASER -->
+    <!-- 6. COMING SOON: ARTISAN COFFEE BAR TEASER -->
     <section id="coffee-teaser" class="menu-section bg-gradient-to-br from-amber-950 via-stone-900 to-black text-white p-6 sm:p-10 rounded-3xl relative overflow-hidden shadow-xl">
       <!-- Decorative background blur -->
       <div class="absolute -right-16 -top-16 w-64 h-64 rounded-full bg-amber-600/20 blur-3xl pointer-events-none"></div>
@@ -853,6 +859,7 @@
     const menuSections = {
       juices: document.getElementById('section-juices'),
       smoothies: document.getElementById('section-smoothies'),
+      boosters: document.getElementById('section-boosters'),
       croissants: document.getElementById('section-croissants'),
       milkshakes: document.getElementById('section-milkshakes'),
       coffee: document.getElementById('coffee-teaser')
