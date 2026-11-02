@@ -51,9 +51,8 @@
       border-color: #B72B2B !important;
     }
     .selected-product-card {
-      outline: 3px solid #B72B2B;
-      outline-offset: 4px;
-      box-shadow: 0 0 0 7px rgba(183, 43, 43, 0.16);
+      outline: 2px solid var(--selected-product-color, currentColor);
+      outline-offset: 3px;
     }
     .search-term-highlight {
       background-color: #fde68a;
@@ -904,6 +903,15 @@
     const productCardsById = new Map();
     let selectedProductCard = null;
     let selectedSearchTerm = '';
+    const productSelectionColors = {
+      juices: '#1E6F43',
+      smoothies: '#F59E0B',
+      boosters: '#F59E0B',
+      croissants: '#FDA4AF',
+      milkshakes: '#C084FC',
+      coffee: '#F59E0B',
+      menu: '#B72B2B'
+    };
 
     function clearSelectedProductCard() {
       selectedProductCard?.classList.remove('selected-product-card');
@@ -952,9 +960,13 @@
     function selectProductCard(card, searchTerm = '') {
       clearSelectedProductCard();
       selectedProductCard = card;
-      if (card.closest('#section-croissants')) {
+      if (card.closest('#section-croissants') && searchTerm) {
         highlightSearchTerm(card, searchTerm);
       } else {
+        const section = card.closest('.menu-section');
+        const category = Object.entries(menuSections)
+          .find(([, menuSection]) => menuSection === section)?.[0] || 'menu';
+        card.style.setProperty('--selected-product-color', productSelectionColors[category]);
         selectedProductCard.classList.add('selected-product-card');
       }
     }
@@ -1227,6 +1239,14 @@
     }
 
     assignProductLinks();
+    document.getElementById('menu-board').addEventListener('click', event => {
+      if (!(event.target instanceof Element) || event.target.closest('a, button, input, select, textarea')) return;
+      const card = event.target.closest('.menu-item-card');
+      if (!card || card.id === 'custom-juice') return;
+
+      selectedSearchTerm = '';
+      selectProductCard(card);
+    });
     document.getElementById('categoryBar').addEventListener('click', event => {
       const link = event.target.closest('a[data-category]');
       if (link && link.hash === window.location.hash) handleHashNavigation();
