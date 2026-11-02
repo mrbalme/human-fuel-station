@@ -535,7 +535,7 @@
         </div>
 
         <div class="pt-2 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-2 border-t border-stone-100">
-          <span>Served warm at the shop counter. Best paired with freshly squeezed orange juice.</span>
+          <span data-search-ignore>Served warm at the shop counter. Best paired with freshly squeezed orange juice.</span>
           <a href="tel:+447446446006" class="font-extrabold text-brand-red hover:underline">Pre-order for fast collection &rarr;</a>
         </div>
 
@@ -887,6 +887,21 @@
         || 'Menu item';
     }
 
+    function searchableTextForCard(card) {
+      const searchableCard = card.cloneNode(true);
+      searchableCard.querySelectorAll('[data-search-ignore]').forEach(element => element.remove());
+      return searchableCard.textContent.toLowerCase();
+    }
+
+    function matchingCategoriesForTerm(term) {
+      return Object.entries(menuSections)
+        .filter(([category, section]) => {
+          const categoryLabel = document.querySelector(`[data-category="${category}"]`).textContent;
+          const sectionTitle = section.querySelector('h2')?.textContent || '';
+          return `${categoryLabel} ${sectionTitle}`.toLowerCase().includes(term);
+        });
+    }
+
     function assignProductLinks() {
       const usedIds = new Set(
         Array.from(document.querySelectorAll('[id]'), element => element.id)
@@ -921,12 +936,39 @@
       searchInput.setAttribute('aria-expanded', 'false');
     }
 
-    function showSearchResults(term) {
+    function showSearchResults(term, matchingCategories) {
       searchResults.replaceChildren();
       matchingSearchCards = Array.from(document.querySelectorAll('.menu-item-card'))
-        .filter(card => card.textContent.toLowerCase().includes(term));
+        .filter(card => {
+          const section = card.closest('.menu-section');
+          const belongsToMatchingCategory = matchingCategories.some(([, matchingSection]) => matchingSection === section);
+          return (!matchingCategories.length || belongsToMatchingCategory)
+            && searchableTextForCard(card).includes(term);
+        })
+        .sort((first, second) => {
+          const firstTitleMatches = productTitleForCard(first).toLowerCase().includes(term);
+          const secondTitleMatches = productTitleForCard(second).toLowerCase().includes(term);
+          return Number(secondTitleMatches) - Number(firstTitleMatches);
+        });
 
-      if (matchingSearchCards.length === 0) {
+      matchingCategories.forEach(([category, section]) => {
+        const result = document.createElement('a');
+        result.href = `#${section.id}`;
+        result.className = 'block w-full border-b border-stone-200 bg-brand-sand/30 px-4 py-3 text-left hover:bg-brand-sand/60 focus:bg-brand-sand/60 focus:outline-none';
+
+        const title = document.createElement('span');
+        title.className = 'block text-sm font-bold text-stone-900';
+        title.textContent = document.querySelector(`[data-category="${category}"]`).textContent.trim();
+        result.append(title);
+
+        const detail = document.createElement('span');
+        detail.className = 'mt-0.5 block text-xs text-stone-500';
+        detail.textContent = 'Browse this category';
+        result.append(detail);
+        searchResults.append(result);
+      });
+
+      if (matchingSearchCards.length === 0 && matchingCategories.length === 0) {
         const message = document.createElement('p');
         message.className = 'px-4 py-3 text-sm text-stone-600';
         message.textContent = `No products found for "${term}".`;
@@ -1075,24 +1117,16 @@
         return;
       }
 
-      showSearchResults(term);
+      const matchingCategories = matchingCategoriesForTerm(term);
+      showSearchResults(term, matchingCategories);
       updateActiveCategory('all');
-      const matchingCategories = new Set(
-        Object.entries(menuSections)
-          .filter(([category, section]) => {
-            const categoryLabel = document.querySelector(`[data-category="${category}"]`).innerText;
-            const sectionTitle = section.querySelector('h2')?.innerText || '';
-            return `${categoryLabel} ${sectionTitle}`.toLowerCase().includes(term);
-          })
-          .map(([category]) => category)
-      );
       Object.entries(menuSections).forEach(([category, section]) => {
-        const categoryMatch = matchingCategories.has(category);
+        const categoryMatch = matchingCategories.some(([matchingCategory]) => matchingCategory === category);
         const sectionCards = section.querySelectorAll('.menu-item-card');
         let hasMatchingCard = false;
 
         sectionCards.forEach(card => {
-          const matches = categoryMatch || card.textContent.toLowerCase().includes(term);
+          const matches = categoryMatch || searchableTextForCard(card).includes(term);
           card.classList.toggle('hidden', !matches);
           if (matches) {
             hasMatchingCard = true;
@@ -1104,7 +1138,8 @@
         if (categoryMatch && !hasMatchingCard) searchTargets.push(section);
       });
 
-      const firstMatchingTarget = searchTargets.find(target => target.matches('.menu-item-card'))
+      const firstMatchingTarget = matchingSearchCards[0]
+        || searchTargets.find(target => target.matches('.menu-item-card'))
         || searchTargets.find(target => target.matches('.menu-section'));
       searchResultSection = firstMatchingTarget?.closest('.menu-section') || null;
 
@@ -1114,6 +1149,17 @@
     searchInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
         e.preventDefault();
+        const matchingCategories = matchingCategoriesForTerm(searchInput.value.toLowerCase().trim());
+        if (matchingCategories[0]) {
+          const [, section] = matchingCategories[0];
+          const categoryHash = `#${section.id}`;
+          if (window.location.hash === categoryHash) {
+            handleHashNavigation();
+          } else {
+            window.location.hash = categoryHash;
+          }
+          return;
+        }
         if (matchingSearchCards[0]) {
           const firstResult = matchingSearchCards[0];
           const resultHash = `#${firstResult.id}`;
