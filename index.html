@@ -879,18 +879,34 @@
     let matchingSearchCards = [];
     const productCardsById = new Map();
 
+    function normalizeSearchText(value) {
+      return value
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\b([a-z]{4,}?)s\b/g, '$1');
+    }
+
+    function matchesSearchQuery(text, term) {
+      const searchableWords = new Set(normalizeSearchText(text).match(/[a-z0-9]+/g) || []);
+      return normalizeSearchText(term)
+        .match(/[a-z0-9]+/g)
+        ?.every(word => searchableWords.has(word)) || false;
+    }
+
     function productTitleForCard(card) {
       const section = card.closest('.menu-section');
       return card.querySelector('h3, .item-name')?.textContent.trim()
-        || section?.querySelector('h2')?.textContent.trim()
+        || (section?.id === 'section-croissants' ? 'Hot Croissant' : null)
         || card.querySelector('h4')?.textContent.trim()
+        || section?.querySelector('h2')?.textContent.trim()
         || 'Menu item';
     }
 
     function searchableTextForCard(card) {
       const searchableCard = card.cloneNode(true);
       searchableCard.querySelectorAll('[data-search-ignore]').forEach(element => element.remove());
-      return searchableCard.textContent.toLowerCase();
+      return searchableCard.textContent;
     }
 
     function matchingCategoriesForTerm(term) {
@@ -898,7 +914,7 @@
         .filter(([category, section]) => {
           const categoryLabel = document.querySelector(`[data-category="${category}"]`).textContent;
           const sectionTitle = section.querySelector('h2')?.textContent || '';
-          return `${categoryLabel} ${sectionTitle}`.toLowerCase().includes(term);
+          return matchesSearchQuery(`${categoryLabel} ${sectionTitle}`, term);
         });
     }
 
@@ -942,12 +958,13 @@
         .filter(card => {
           const section = card.closest('.menu-section');
           const belongsToMatchingCategory = matchingCategories.some(([, matchingSection]) => matchingSection === section);
-          return (!matchingCategories.length || belongsToMatchingCategory)
-            && searchableTextForCard(card).includes(term);
+          const hasProductTitle = Boolean(card.querySelector('h3, .item-name'));
+          return (!belongsToMatchingCategory || hasProductTitle)
+            && matchesSearchQuery(searchableTextForCard(card), term);
         })
         .sort((first, second) => {
-          const firstTitleMatches = productTitleForCard(first).toLowerCase().includes(term);
-          const secondTitleMatches = productTitleForCard(second).toLowerCase().includes(term);
+          const firstTitleMatches = matchesSearchQuery(productTitleForCard(first), term);
+          const secondTitleMatches = matchesSearchQuery(productTitleForCard(second), term);
           return Number(secondTitleMatches) - Number(firstTitleMatches);
         });
 
@@ -1126,7 +1143,7 @@
         let hasMatchingCard = false;
 
         sectionCards.forEach(card => {
-          const matches = categoryMatch || searchableTextForCard(card).includes(term);
+          const matches = categoryMatch || matchesSearchQuery(searchableTextForCard(card), term);
           card.classList.toggle('hidden', !matches);
           if (matches) {
             hasMatchingCard = true;
