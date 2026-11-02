@@ -813,25 +813,38 @@
 
       if (selectedIngredients.includes(ing)) {
         selectedIngredients = selectedIngredients.filter(i => i !== ing);
-        btn.classList.remove('border-brand-green', 'bg-brand-mint', 'text-brand-green');
-        btn.classList.add('bg-white', 'text-stone-700');
-        check.classList.add('hidden');
-        check.classList.remove('flex');
+        setIngredientButtonSelected(btn, check, false);
+        updateCustomSelectionUI();
       } else {
-        if (selectedIngredients.length >= 4) {
-          // Visual feedback that max 4 reached
-          btn.classList.add('border-brand-red');
-          setTimeout(() => btn.classList.remove('border-brand-red'), 400);
-          return;
-        }
-        selectedIngredients.push(ing);
-        btn.classList.add('border-brand-green', 'bg-brand-mint', 'text-brand-green');
-        btn.classList.remove('bg-white', 'text-stone-700');
-        check.classList.remove('hidden');
-        check.classList.add('flex');
+        selectCustomJuiceIngredient(index);
+      }
+    }
+
+    function setIngredientButtonSelected(button, check, isSelected) {
+      button.classList.toggle('border-brand-green', isSelected);
+      button.classList.toggle('bg-brand-mint', isSelected);
+      button.classList.toggle('text-brand-green', isSelected);
+      button.classList.toggle('bg-white', !isSelected);
+      button.classList.toggle('text-stone-700', !isSelected);
+      check.classList.toggle('hidden', !isSelected);
+      check.classList.toggle('flex', isSelected);
+    }
+
+    function selectCustomJuiceIngredient(index) {
+      const ing = ingredients[index];
+      const button = document.getElementById(`btn-ing-${index}`);
+      if (selectedIngredients.includes(ing)) return true;
+
+      if (selectedIngredients.length >= 4) {
+        button.classList.add('border-brand-red');
+        setTimeout(() => button.classList.remove('border-brand-red'), 400);
+        return false;
       }
 
+      selectedIngredients.push(ing);
+      setIngredientButtonSelected(button, button.querySelector('.check-mark'), true);
       updateCustomSelectionUI();
+      return true;
     }
 
     function updateCustomSelectionUI() {
@@ -1067,6 +1080,32 @@
             : '';
           const productName = productTitleForCard(card);
 
+          if (card.id === 'custom-juice') {
+            const matchingIngredientIndexes = ingredients
+              .map((ingredient, index) => matchesSearchQuery(ingredient, term) ? index : -1)
+              .filter(index => index !== -1);
+
+            if (matchingIngredientIndexes.length) {
+              matchingIngredientIndexes.forEach(index => {
+                const result = document.createElement('a');
+                result.href = `#btn-ing-${index}`;
+                result.className = 'block w-full border-b border-stone-100 px-4 py-3 text-left last:border-b-0 hover:bg-brand-sand/50 focus:bg-brand-sand/50 focus:outline-none';
+
+                const title = document.createElement('span');
+                title.className = 'block text-sm font-bold text-stone-900';
+                title.textContent = `${ingredients[index]} · Create Your Own Juice`;
+                result.append(title);
+
+                const detail = document.createElement('span');
+                detail.className = 'mt-0.5 block text-xs text-stone-500';
+                detail.textContent = `Select ${ingredients[index]} as an ingredient`;
+                result.append(detail);
+                searchResults.append(result);
+              });
+              return;
+            }
+          }
+
           const result = document.createElement('a');
           result.href = `#${card.id}`;
           result.className = 'block w-full border-b border-stone-100 px-4 py-3 text-left last:border-b-0 hover:bg-brand-sand/50 focus:bg-brand-sand/50 focus:outline-none';
@@ -1140,6 +1179,18 @@
 
     function navigateToHash(hash, shouldScroll = true) {
       const targetId = hash.replace(/^#/, '');
+      const ingredientMatch = targetId.match(/^btn-ing-(\d+)$/);
+      if (ingredientMatch) {
+        const index = Number(ingredientMatch[1]);
+        const ingredientButton = document.getElementById(targetId);
+        if (ingredientButton && index < ingredients.length) {
+          setFilter('juices', false);
+          selectCustomJuiceIngredient(index);
+          if (shouldScroll) scrollMenuTargetIntoView(ingredientButton);
+        }
+        return;
+      }
+
       const productCard = productCardsById.get(targetId);
       if (productCard) {
         const section = productCard.closest('.menu-section');
@@ -1283,6 +1334,7 @@
       lucide.createIcons();
       document.getElementById('copyright-year').textContent = new Date().getFullYear();
       updateCustomSelectionUI();
+      if (window.location.hash.startsWith('#btn-ing-')) handleHashNavigation();
     });
   </script>
 
