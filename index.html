@@ -262,7 +262,7 @@
         </div>
 
         <!-- Pomegranate Juice Special -->
-        <div class="menu-item-card md:col-span-2 bg-gradient-to-r from-red-50 to-pink-50 p-5 rounded-2xl border border-red-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="menu-item-card md:col-span-2 bg-gradient-to-r from-red-50 to-pink-50 p-5 rounded-2xl border border-red-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3" data-selection-color="#B72B2B">
           <div>
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider rounded bg-brand-red text-white">Specialty Press</span>
@@ -966,7 +966,7 @@
         const section = card.closest('.menu-section');
         const category = Object.entries(menuSections)
           .find(([, menuSection]) => menuSection === section)?.[0] || 'menu';
-        card.style.setProperty('--selected-product-color', productSelectionColors[category]);
+        card.style.setProperty('--selected-product-color', card.dataset.selectionColor || productSelectionColors[category]);
         selectedProductCard.classList.add('selected-product-card');
       }
     }
