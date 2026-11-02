@@ -1247,6 +1247,12 @@
       selectedSearchTerm = '';
       selectProductCard(card);
     });
+    document.addEventListener('click', event => {
+      if (!(event.target instanceof Element) || !selectedProductCard || selectedProductCard.contains(event.target)) return;
+      const productResult = event.target.closest('#searchResults a[href^="#"]');
+      if (productResult && productCardsById.has(productResult.hash.slice(1))) return;
+      clearSelectedProductCard();
+    });
     document.getElementById('categoryBar').addEventListener('click', event => {
       const link = event.target.closest('a[data-category]');
       if (link && link.hash === window.location.hash) handleHashNavigation();
