@@ -477,7 +477,7 @@
       <!-- Step-by-Step Board Breakdown -->
       <div class="menu-item-card bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm space-y-6">
         
-        <p class="text-xs sm:text-sm text-stone-600 font-medium">
+        <p data-search-ignore class="text-xs sm:text-sm text-stone-600 font-medium">
           Warm, flaky, butter croissant freshly toasted and built with your choice of Base, Chocolate/Sweet treat Flavour, and gourmet Sauce drizzle:
         </p>
 
@@ -930,7 +930,7 @@
       const textNodes = [];
 
       while (walker.nextNode()) {
-        if (walker.currentNode.parentElement?.closest('script, style, .search-term-highlight')) continue;
+        if (walker.currentNode.parentElement?.closest('script, style, [data-search-ignore], .search-term-highlight')) continue;
         textNodes.push(walker.currentNode);
       }
 
