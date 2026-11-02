@@ -50,7 +50,6 @@
       color: #FFFFFF !important;
       border-color: #B72B2B !important;
     }
-    #menu-board, #custom-juice, #coffee-teaser { scroll-margin-top: 11rem; }
   </style>
 </head>
 <body class="bg-brand-cream text-brand-dark font-sans selection:bg-brand-red selection:text-white antialiased min-h-screen flex flex-col">
@@ -59,7 +58,7 @@
 <div class="bg-brand-dark text-white text-xs py-2.5 px-4 text-center flex flex-wrap items-center justify-center gap-3">
   <span class="inline-flex items-center gap-2 font-bold text-amber-400">
     <span id="shop-status-dot" class="relative flex h-2.5 w-2.5">
-      <span id="shop-status-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+      <span id="shop-status-ping" class="hidden"></span>
       <span id="shop-status-core" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
     </span>
     <span id="shop-status-text" class="text-emerald-400 font-extrabold uppercase text-[10px] tracking-wide">OPEN</span>
@@ -122,34 +121,34 @@
       
       <!-- Category Tabs matching the official menu -->
       <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth px-4 py-0.5" id="categoryBar">
-          <button onclick="setFilter('all')" data-category="all" class="cat-pill active-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
+          <button onclick="setFilter('all')" data-category="all" aria-pressed="true" class="cat-pill active-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
             Full Menu
           </button>
-          <button onclick="setFilter('juices')" data-category="juices" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
-            🍏 Fresh Juices
+          <button onclick="setFilter('juices')" data-category="juices" aria-pressed="false" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
+            <span aria-hidden="true">🍏</span> Fresh Juices
           </button>
-          <button onclick="setFilter('smoothies')" data-category="smoothies" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
-            🥤 Smoothies
+          <button onclick="setFilter('smoothies')" data-category="smoothies" aria-pressed="false" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
+            <span aria-hidden="true">🥤</span> Smoothies
           </button>
-          <button onclick="setFilter('boosters')" data-category="boosters" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
-            ⚡ Boosters
+          <button onclick="setFilter('boosters')" data-category="boosters" aria-pressed="false" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
+            <span aria-hidden="true">⚡</span> Boosters
           </button>
-          <button onclick="setFilter('croissants')" data-category="croissants" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
-            🥐 Hot Croissants
+          <button onclick="setFilter('croissants')" data-category="croissants" aria-pressed="false" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
+            <span aria-hidden="true">🥐</span> Hot Croissants
           </button>
-          <button onclick="setFilter('milkshakes')" data-category="milkshakes" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
-            🥛 Milkshakes
+          <button onclick="setFilter('milkshakes')" data-category="milkshakes" aria-pressed="false" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-stone-300 bg-white text-stone-700 transition">
+            <span aria-hidden="true">🥛</span> Milkshakes
           </button>
-          <button onclick="setFilter('coffee')" data-category="coffee" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-amber-300 bg-amber-50 text-amber-900 transition">
-            ☕ Coffee (Teaser)
+          <button onclick="setFilter('coffee')" data-category="coffee" aria-pressed="false" class="cat-pill px-4 min-w-max shrink-0 whitespace-nowrap py-1.5 rounded-xl text-xs font-black border border-amber-300 bg-amber-50 text-amber-900 transition">
+            <span aria-hidden="true">☕</span> Coffee (Teaser)
           </button>
       </div>
 
       <!-- Quick Search Input -->
       <div class="relative w-full">
         <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3 top-2.5"></i>
-        <input type="text" id="searchInput" placeholder="Search juice, fruit, biscuit..."
-               class="w-full pl-9 pr-3 py-1.5 rounded-xl bg-white border border-stone-300 text-base md:text-xs text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-red">
+        <input type="text" id="searchInput" aria-label="Search menu products" autocomplete="off" placeholder="Search juice, fruit, biscuit..."
+               class="w-full pl-9 pr-3 py-1.5 rounded-xl bg-white border border-stone-300 text-base md:text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-red">
       </div>
 
     </div>
@@ -277,11 +276,12 @@
           </div>
           <div class="text-right">
             <span class="text-xs font-bold text-stone-500">Selection:</span>
-            <span id="selectedCount" class="font-display font-black text-brand-green text-base ml-1">0 / 4</span>
+            <span id="selectedCount" aria-live="polite" class="font-display font-black text-brand-green text-base ml-1">0 / 4</span>
           </div>
         </div>
 
         <!-- The 12 Official Board Ingredients -->
+        <noscript><p class="pt-4 text-xs font-bold text-stone-600">Enable JavaScript to choose ingredients for a custom juice.</p></noscript>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 pt-4" id="customJuiceGrid">
           <!-- Rendered via JS -->
         </div>
@@ -290,12 +290,12 @@
         <div class="mt-5 p-4 rounded-2xl bg-brand-sand/50 border border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <span class="text-[11px] font-bold uppercase text-stone-500 block">Your Custom Blend:</span>
-            <p id="customSelectionText" class="text-xs sm:text-sm font-extrabold text-brand-dark italic">Tap up to 4 ingredients above to craft your juice.</p>
+            <p id="customSelectionText" aria-live="polite" class="text-xs sm:text-sm font-extrabold text-brand-dark italic">Tap up to 4 ingredients above to craft your juice.</p>
           </div>
           <div class="flex items-center gap-2">
             <button onclick="clearCustomJuice()" class="px-3 py-1.5 rounded-xl border border-stone-300 text-xs font-bold hover:bg-stone-100 text-stone-700">Clear</button>
-            <a href="tel:+447446446006" class="px-4 py-1.5 rounded-xl bg-brand-green text-white text-xs font-extrabold hover:bg-emerald-800 transition flex items-center gap-1.5">
-              <i data-lucide="phone" class="w-3.5 h-3.5"></i> Order This Mix
+            <a id="orderCustomJuice" href="sms:+447446446006" class="px-4 py-1.5 rounded-xl bg-brand-green text-white text-xs font-extrabold hover:bg-emerald-800 transition flex items-center gap-1.5">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Order This Mix
             </a>
           </div>
         </div>
@@ -463,7 +463,7 @@
       </div>
 
       <!-- Step-by-Step Board Breakdown -->
-      <div class="bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm space-y-6">
+      <div class="menu-item-card bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm space-y-6">
         
         <p class="text-xs sm:text-sm text-stone-600 font-medium">
           Warm, flaky, butter croissant freshly toasted and built with your choice of Base, Chocolate/Sweet treat Flavour, and gourmet Sauce drizzle:
@@ -685,7 +685,7 @@
       </div>
     </section>
 
-    <!-- 6. VISIT US / LOCATION & MAP CARD -->
+    <!-- 7. VISIT US / LOCATION & MAP CARD -->
     <section class="bg-white p-6 sm:p-8 rounded-3xl border border-stone-200 shadow-sm" id="visit">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         
@@ -766,7 +766,7 @@
   <footer class="bg-white border-t border-stone-200 py-8 text-center text-xs text-stone-500">
     <div class="max-w-6xl mx-auto px-4 space-y-2">
       <p class="font-bold text-stone-800">Human Fuel Station — Newport's Daily Juice & Fuel Bar</p>
-      <p class="text-[11px] text-stone-400 pt-2">&copy; 2026 Human Fuel Station. All Rights Reserved.</p>
+      <p class="text-[11px] text-stone-400 pt-2">&copy; <span id="copyright-year"></span> Human Fuel Station. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -784,8 +784,8 @@
     // Initialize DIY juice builder buttons
     function initCustomJuiceGrid() {
       const grid = document.getElementById('customJuiceGrid');
-      grid.innerHTML = ingredients.map(ing => `
-        <button type="button" onclick="toggleIngredient('${ing}')" id="btn-ing-${ing.replace(/\s+/g, '')}"
+      grid.innerHTML = ingredients.map((ing, index) => `
+        <button type="button" onclick="toggleIngredient(${index})" id="btn-ing-${index}"
                 class="p-2.5 rounded-xl border border-stone-200 bg-white text-xs font-bold text-stone-700 hover:border-brand-green text-left transition flex items-center justify-between">
           <span>${ing}</span>
           <span class="check-mark hidden w-4 h-4 rounded-full bg-brand-green text-white text-[10px] items-center justify-center">✓</span>
@@ -793,9 +793,9 @@
       `).join('');
     }
 
-    function toggleIngredient(ing) {
-      const cleanId = ing.replace(/\s+/g, '');
-      const btn = document.getElementById(`btn-ing-${cleanId}`);
+    function toggleIngredient(index) {
+      const ing = ingredients[index];
+      const btn = document.getElementById(`btn-ing-${index}`);
       const check = btn.querySelector('.check-mark');
 
       if (selectedIngredients.includes(ing)) {
@@ -830,6 +830,12 @@
       } else {
         textElem.innerText = selectedIngredients.join(" + ");
       }
+
+      const orderMessage = selectedIngredients.length
+        ? `Hi, I'd like to order a custom juice with ${selectedIngredients.join(' + ')}.`
+        : "Hi, I'd like to order a custom juice.";
+      document.getElementById('orderCustomJuice').href =
+        `sms:+447446446006?body=${encodeURIComponent(orderMessage)}`;
     }
 
     function clearCustomJuice() {
@@ -865,9 +871,14 @@
       coffee: document.getElementById('coffee-teaser')
     };
 
+    const searchInput = document.getElementById('searchInput');
+    let searchResultSection = null;
+
     function updateActiveCategory(category) {
       document.querySelectorAll('.cat-pill').forEach(btn => {
-        if (btn.getAttribute('data-category') === category) {
+        const isActive = btn.getAttribute('data-category') === category;
+        btn.setAttribute('aria-pressed', String(isActive));
+        if (isActive) {
           btn.classList.add('active-pill');
         } else {
           btn.classList.remove('active-pill');
@@ -882,6 +893,9 @@
     }
 
     function setFilter(category) {
+      searchInput.value = '';
+      searchResultSection = null;
+      document.querySelectorAll('.menu-item-card').forEach(card => card.classList.remove('hidden'));
       updateActiveCategory(category);
 
       // Filter sections
@@ -904,8 +918,6 @@
     }
 
     // Real-time Text Search for Menu Items
-    const searchInput = document.getElementById('searchInput');
-    let searchResultSection = null;
     searchInput.addEventListener('input', function(e) {
       const term = e.target.value.toLowerCase().trim();
       const itemCards = document.querySelectorAll('.menu-item-card');
@@ -919,6 +931,7 @@
         return;
       }
 
+      updateActiveCategory('all');
       const matchingCategories = new Set(
         Object.entries(menuSections)
           .filter(([category, section]) => {
@@ -928,23 +941,13 @@
           })
           .map(([category]) => category)
       );
-      const titleMatches = new Set(
-        Array.from(itemCards).filter(card => {
-          const title = card.querySelector('h3, h4, .item-name')?.innerText || '';
-          return title.toLowerCase().includes(term);
-        })
-      );
-      const hasPrimaryMatch = matchingCategories.size > 0 || titleMatches.size > 0;
-
       Object.entries(menuSections).forEach(([category, section]) => {
         const categoryMatch = matchingCategories.has(category);
         const sectionCards = section.querySelectorAll('.menu-item-card');
         let hasMatchingCard = false;
 
         sectionCards.forEach(card => {
-          const titleMatch = titleMatches.has(card);
-          const descriptionMatch = !hasPrimaryMatch && card.innerText.toLowerCase().includes(term);
-          const matches = categoryMatch || titleMatch || descriptionMatch;
+          const matches = categoryMatch || card.textContent.toLowerCase().includes(term);
           card.classList.toggle('hidden', !matches);
           if (matches) {
             hasMatchingCard = true;
@@ -956,16 +959,8 @@
         if (categoryMatch && !hasMatchingCard) searchTargets.push(section);
       });
 
-      const firstMatchingCard = searchTargets
-        .filter(target => target.matches('.menu-item-card'))
-        .sort((a, b) => (
-          a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1
-        ))[0];
-      const firstMatchingTarget = firstMatchingCard || searchTargets
-        .filter(target => target.matches('.menu-section'))
-        .sort((a, b) => (
-          a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1
-        ))[0];
+      const firstMatchingTarget = searchTargets.find(target => target.matches('.menu-item-card'))
+        || searchTargets.find(target => target.matches('.menu-section'));
       searchResultSection = firstMatchingTarget?.closest('.menu-section') || null;
 
       if (searchResultSection) updateActiveCategoryForSection(searchResultSection);
@@ -974,7 +969,6 @@
     searchInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
         e.preventDefault();
-        searchInput.blur();
         if (searchResultSection) {
           updateActiveCategoryForSection(searchResultSection);
           scrollMenuTargetIntoView(searchResultSection);
@@ -983,10 +977,12 @@
     });
 
     // Window Load
-    window.onload = function() {
+    window.addEventListener('load', function() {
       initCustomJuiceGrid();
       lucide.createIcons();
-    };
+      document.getElementById('copyright-year').textContent = new Date().getFullYear();
+      updateCustomSelectionUI();
+    });
   </script>
 
   <script>
