@@ -147,8 +147,10 @@
       <!-- Quick Search Input -->
       <div class="relative w-full">
         <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3 top-2.5"></i>
-        <input type="text" id="searchInput" aria-label="Search menu products" autocomplete="off" placeholder="Search juice, fruit, biscuit..."
+        <input type="text" id="searchInput" aria-label="Search menu products" aria-controls="searchResults" aria-expanded="false" aria-autocomplete="list" autocomplete="off" placeholder="Search juice, fruit, biscuit..."
                class="w-full pl-9 pr-3 py-1.5 rounded-xl bg-white border border-stone-300 text-base md:text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-brand-red">
+        <div id="searchResults" role="region" aria-label="Search results" aria-live="polite"
+             class="hidden absolute top-full left-0 right-0 mt-1 max-h-80 overflow-y-auto rounded-xl border border-stone-200 bg-white shadow-xl z-50"></div>
       </div>
 
     </div>
@@ -872,7 +874,68 @@
     };
 
     const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
     let searchResultSection = null;
+    let matchingSearchCards = [];
+
+    function hideSearchResults() {
+      searchResults.classList.add('hidden');
+      searchInput.setAttribute('aria-expanded', 'false');
+    }
+
+    function showSearchResults(term) {
+      searchResults.replaceChildren();
+      matchingSearchCards = Array.from(document.querySelectorAll('.menu-item-card'))
+        .filter(card => card.textContent.toLowerCase().includes(term));
+
+      if (matchingSearchCards.length === 0) {
+        const message = document.createElement('p');
+        message.className = 'px-4 py-3 text-sm text-stone-600';
+        message.textContent = `No products found for "${term}".`;
+        searchResults.append(message);
+      } else {
+        matchingSearchCards.forEach(card => {
+          const section = card.closest('.menu-section');
+          const category = Object.entries(menuSections)
+            .find(([, menuSection]) => menuSection === section)?.[0];
+          const categoryLabel = category
+            ? document.querySelector(`[data-category="${category}"]`).textContent.trim()
+            : '';
+          const productName = card.querySelector('h3, .item-name')?.textContent.trim()
+            || section?.querySelector('h2')?.textContent.trim()
+            || card.querySelector('h4')?.textContent.trim()
+            || 'Menu item';
+
+          const result = document.createElement('button');
+          result.type = 'button';
+          result.className = 'block w-full border-b border-stone-100 px-4 py-3 text-left last:border-b-0 hover:bg-brand-sand/50 focus:bg-brand-sand/50 focus:outline-none';
+
+          const title = document.createElement('span');
+          title.className = 'block text-sm font-bold text-stone-900';
+          title.textContent = productName;
+          result.append(title);
+
+          if (categoryLabel) {
+            const detail = document.createElement('span');
+            detail.className = 'mt-0.5 block text-xs text-stone-500';
+            detail.textContent = `Includes "${term}" · ${categoryLabel}`;
+            result.append(detail);
+          }
+
+          result.addEventListener('click', () => {
+            if (section) section.classList.remove('hidden');
+            card.classList.remove('hidden');
+            updateActiveCategoryForSection(section);
+            hideSearchResults();
+            scrollMenuTargetIntoView(card);
+          });
+          searchResults.append(result);
+        });
+      }
+
+      searchResults.classList.remove('hidden');
+      searchInput.setAttribute('aria-expanded', 'true');
+    }
 
     function updateActiveCategory(category) {
       document.querySelectorAll('.cat-pill').forEach(btn => {
@@ -895,6 +958,8 @@
     function setFilter(category) {
       searchInput.value = '';
       searchResultSection = null;
+      matchingSearchCards = [];
+      hideSearchResults();
       document.querySelectorAll('.menu-item-card').forEach(card => card.classList.remove('hidden'));
       updateActiveCategory(category);
 
@@ -928,9 +993,11 @@
         itemCards.forEach(card => card.classList.remove('hidden'));
         Object.values(menuSections).forEach(section => section.classList.remove('hidden'));
         updateActiveCategory('all');
+        hideSearchResults();
         return;
       }
 
+      showSearchResults(term);
       updateActiveCategory('all');
       const matchingCategories = new Set(
         Object.entries(menuSections)
@@ -969,10 +1036,27 @@
     searchInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
         e.preventDefault();
+        if (matchingSearchCards[0]) {
+          const firstResult = matchingSearchCards[0];
+          const section = firstResult.closest('.menu-section');
+          if (section) section.classList.remove('hidden');
+          firstResult.classList.remove('hidden');
+          hideSearchResults();
+          scrollMenuTargetIntoView(firstResult);
+          return;
+        }
         if (searchResultSection) {
           updateActiveCategoryForSection(searchResultSection);
           scrollMenuTargetIntoView(searchResultSection);
         }
+      } else if (e.key === 'Escape') {
+        hideSearchResults();
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#searchInput') && !e.target.closest('#searchResults')) {
+        hideSearchResults();
       }
     });
 
