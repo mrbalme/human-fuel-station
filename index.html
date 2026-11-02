@@ -50,6 +50,17 @@
       color: #FFFFFF !important;
       border-color: #B72B2B !important;
     }
+    .selected-product-card {
+      outline: 3px solid #B72B2B;
+      outline-offset: 4px;
+      box-shadow: 0 0 0 7px rgba(183, 43, 43, 0.16);
+    }
+    .search-term-highlight {
+      background-color: #fde68a;
+      color: #181716;
+      border-radius: 0.2rem;
+      padding: 0 0.1rem;
+    }
   </style>
 </head>
 <body class="bg-brand-cream text-brand-dark font-sans selection:bg-brand-red selection:text-white antialiased min-h-screen flex flex-col">
@@ -878,6 +889,62 @@
     let searchResultSection = null;
     let matchingSearchCards = [];
     const productCardsById = new Map();
+    let selectedProductCard = null;
+    let selectedSearchTerm = '';
+
+    function clearSelectedProductCard() {
+      selectedProductCard?.classList.remove('selected-product-card');
+      selectedProductCard?.querySelectorAll('.search-term-highlight').forEach(highlight => {
+        highlight.replaceWith(document.createTextNode(highlight.textContent));
+      });
+      selectedProductCard = null;
+    }
+
+    function highlightSearchTerm(card, term) {
+      const words = term.match(/[a-z0-9]+/gi) || [];
+      if (!words.length) return;
+
+      const wordPattern = new RegExp(`(${words.map(word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+      const walker = document.createTreeWalker(card, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+
+      while (walker.nextNode()) {
+        if (walker.currentNode.parentElement?.closest('script, style, .search-term-highlight')) continue;
+        textNodes.push(walker.currentNode);
+      }
+
+      textNodes.forEach(textNode => {
+        if (!wordPattern.test(textNode.textContent)) {
+          wordPattern.lastIndex = 0;
+          return;
+        }
+        wordPattern.lastIndex = 0;
+
+        const fragment = document.createDocumentFragment();
+        let lastIndex = 0;
+        textNode.textContent.replace(wordPattern, (match, _matchedWord, offset) => {
+          fragment.append(document.createTextNode(textNode.textContent.slice(lastIndex, offset)));
+          const highlight = document.createElement('mark');
+          highlight.className = 'search-term-highlight';
+          highlight.textContent = match;
+          fragment.append(highlight);
+          lastIndex = offset + match.length;
+          return match;
+        });
+        fragment.append(document.createTextNode(textNode.textContent.slice(lastIndex)));
+        textNode.replaceWith(fragment);
+      });
+    }
+
+    function selectProductCard(card, searchTerm = '') {
+      clearSelectedProductCard();
+      selectedProductCard = card;
+      if (card.closest('#section-croissants')) {
+        highlightSearchTerm(card, searchTerm);
+      } else {
+        selectedProductCard.classList.add('selected-product-card');
+      }
+    }
 
     function normalizeSearchText(value) {
       return value
@@ -1044,6 +1111,7 @@
     }
 
     function setFilter(category, shouldScroll = true) {
+      clearSelectedProductCard();
       searchInput.value = '';
       searchResultSection = null;
       matchingSearchCards = [];
@@ -1079,6 +1147,7 @@
           .find(([, menuSection]) => menuSection === section)?.[0];
         setFilter(category || 'all', false);
         productCard.classList.remove('hidden');
+        selectProductCard(productCard, selectedSearchTerm);
         if (shouldScroll) scrollMenuTargetIntoView(productCard);
         return;
       }
@@ -1113,6 +1182,11 @@
     });
     document.getElementById('searchResults').addEventListener('click', event => {
       const link = event.target.closest('a[href^="#"]');
+      if (link && productCardsById.has(link.hash.slice(1))) {
+        selectedSearchTerm = searchInput.value.trim();
+      } else {
+        selectedSearchTerm = '';
+      }
       if (link && link.hash === window.location.hash) handleHashNavigation();
       hideSearchResults();
     });
@@ -1121,6 +1195,7 @@
 
     // Real-time Text Search for Menu Items
     searchInput.addEventListener('input', function(e) {
+      clearSelectedProductCard();
       const term = e.target.value.toLowerCase().trim();
       const itemCards = document.querySelectorAll('.menu-item-card');
       const searchTargets = [];
